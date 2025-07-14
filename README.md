@@ -1,50 +1,57 @@
 # 🛡️ Multiclass IoT Attack Classifier
 
-This project builds a machine learning model to classify different types of attacks targeting **Internet of Things (IoT)** networks. The goal is to detect and distinguish between various cyber threats using supervised learning techniques on labeled IoT traffic datasets.
+This project presents a machine learning model designed to classify multiple types of cyberattacks targeting Internet of Things (IoT) devices. Using real-world traffic data from the **N-BaIoT dataset**, the model aims to detect malware families like **Mirai** and **Gafgyt**, which are known for launching large-scale IoT-based attacks.
 
 ---
 
-## 🧠 Overview
+## 🎯 Objective
 
-The rapid expansion of IoT devices makes them attractive targets for cyberattacks. This classifier identifies multiple attack types (e.g. DoS, DDoS, MITM, PortScan, Botnet) using feature-engineered data from IoT traffic logs.
-
----
-
-## 📂 Dataset
-
-- **Source**: [BoT-IoT Dataset]
-- **Classes**:  
-  - 🟢 Normal  
-  - 🔴 DoS  
-  - 🟠 DDoS  
-  - ⚫ Botnet  
-  - 🟡 MITM  
-  - 🔵 PortScan  
+To develop a robust multiclass classification system capable of detecting various IoT botnet attacks using supervised learning—supporting 11 classes (10 attack types + 1 benign class).
 
 ---
 
-## ✨ Features
+## 📊 Dataset: N-BaIoT
 
-- Data preprocessing (cleaning, label encoding, scaling)
-- Multiclass classification using:
-  - Random Forest
-  - XGBoost
-  - KNN / SVM (optional)
-- Evaluation metrics:
-  - Accuracy, Precision, Recall, F1-score
-  - Confusion matrix
-- Feature importance analysis
-- (Optional) Real-time prediction simulation
+- **Samples:** ~7 million records  
+- **Features:** 115 numerical network traffic features  
+- **Devices:** Data collected from 9 real infected IoT devices  
+- **Classes:** 11 total (benign + 10 attack types like `gafgyt_udp`, `mirai_scan`, etc.)
 
 ---
 
-## 🛠️ Technologies Used
+## 🔧 Preprocessing
 
-- Python 3.x  
-- Scikit-learn  
-- XGBoost / LightGBM  
-- Pandas / NumPy  
-- Matplotlib / Seaborn  
-- Jupyter Notebook
+1. **Label Encoding:** All textual labels (e.g., `mirai_udp`, `benign`) were encoded as integers.
+2. **Resampling:** Balanced the dataset by sampling 100 examples per class to prevent model bias.
+3. **Train-Test Split:** 60% for testing, 40% for training across all classes.
+4. **Feature Analysis:** Statistical measures (mean, std, correlation) were used to understand feature relevance.
 
 ---
+
+## 🤖 Model: XGBoost Classifier
+
+- Chosen for its high performance on structured data.
+- Supports native multiclass classification.
+- Handles class imbalance well.
+- Implements pruning and regularization to prevent overfitting.
+
+---
+
+## 🧪 Evaluation
+
+- **Accuracy:** Over **98%**  
+- **Classification Report:** High precision, recall, and F1-score across all classes  
+- **Confusion Matrix:** Shows minimal confusion even between similar attack types (e.g., `mirai_udp` vs `mirai_udpplain`)
+
+---
+
+## 📌 Conclusion
+
+The classifier successfully distinguishes between multiple IoT attack types, even with limited data per class. The model serves as a foundation for developing a lightweight **Intrusion Detection System (IDS)** for smart environments and can be improved with:
+
+- Hyperparameter tuning  
+- Deep learning & time-series models  
+- Explainable AI techniques
+
+---
+
